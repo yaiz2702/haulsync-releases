@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HaulSync — GTA client work, kept separate</title>
+<meta name="description" content="HaulSync keeps every GTA client's recipients, GSTR-1 work, bank reconciliation and backups separate. One license covers unlimited clients on one Windows computer. 7-day trial.">
+<meta property="og:title" content="HaulSync — GTA client work, kept separate">
+<meta property="og:description" content="Recipients, GSTR-1, bank reconciliation and backups for every GTA client, isolated and organised. Annual and monthly licenses.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/haulsync-dashboard.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--ink:#17232f;--muted:#5c6b7a;--line:#d8e1ea;--soft:#f4f8fc;--accent:#1f6fb2;--accent-dark:#185d96;--good:#1a7f4b;--bg:#f4f7fb}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif}
+a{color:var(--accent)}
+img{max-width:100%;height:auto}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+header.pub{background:#17232f;color:#fff;padding:14px 0;position:sticky;top:0;z-index:20;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+header.pub .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-size:20px;font-weight:700;letter-spacing:.01em;text-decoration:none;color:#fff}
+.brand span{color:#8fc3ef}
+nav.pub{display:flex;align-items:center;gap:18px;font-size:13px}
+nav.pub a{color:#c9d6e2;text-decoration:none}
+nav.pub a:hover{color:#fff}
+.hero{padding:56px 0 20px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.pill{display:inline-block;background:#e8f2fc;color:#1b5f99;border:1px solid #c6ddf2;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;margin-bottom:16px}
+h1{font-size:42px;line-height:1.1;margin:0 0 14px;letter-spacing:-.025em}
+.hero p.lead{font-size:17px;color:var(--muted);margin:0;max-width:560px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.trust{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:18px;color:var(--muted);font-size:12.5px}
+.trust span::before{content:"✓";color:var(--good);font-weight:700;margin-right:6px}
+.shot{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:0 18px 50px rgba(23,35,47,.14)}
+.shot img{display:block;border-radius:9px;border:1px solid #e6edf4}
+.shot figcaption{font-size:11.5px;color:var(--muted);text-align:center;padding:8px 4px 2px}
+.btn{display:inline-block;border:0;border-radius:8px;padding:11px 20px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;background:var(--accent);color:#fff}
+.btn:hover{background:var(--accent-dark)}
+.btn.ghost{background:#fff;color:var(--accent);border:1px solid #b9d7f3}
+.btn.ghost:hover{background:#f2f8fe}
+.btn.large{padding:13px 24px;font-size:15px}
+section{padding:26px 0}
+.section-title{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px}
+h2{font-size:27px;line-height:1.2;margin:0 0 8px;letter-spacing:-.015em}
+.sub{color:var(--muted);margin:0 0 22px;max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 1px 2px rgba(23,35,47,.04)}
+.card h3{font-size:16px;margin:0 0 6px}
+.card p{margin:0;color:var(--muted);font-size:13.5px}
+.icon{width:38px;height:38px;border-radius:9px;background:#e8f2fc;color:#1b5f99;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px;font-size:15px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;counter-reset:step}
+.step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;position:relative}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:18px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.step h3{margin:8px 0 4px;font-size:15px}
+.step p{margin:0;color:var(--muted);font-size:13px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:6px}
+.plan{background:#fff;border:1px solid #b9d7f3;border-radius:14px;padding:26px;position:relative;box-shadow:0 8px 30px rgba(31,111,178,.08)}
+.plan .badge{position:absolute;top:18px;right:18px;background:#e5f6ec;color:#136b3c;border-radius:999px;padding:3px 10px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.plan h3{margin:0 0 4px;font-size:18px}
+.plan .desc{color:var(--muted);font-size:13px;margin:0}
+.price{font-size:38px;font-weight:700;letter-spacing:-.02em;margin:14px 0 2px}
+.price small{font-size:14px;font-weight:400;color:var(--muted)}
+.plan ul{margin:14px 0 22px;padding-left:18px;color:var(--muted);font-size:13.5px}
+.plan li{margin:6px 0}
+.download-box{background:var(--soft);border:1px solid #cfe0ef;border-radius:10px;padding:18px;margin-top:14px}
+.download-box p{margin:6px 0}
+.checksum{font-family:Consolas,ui-monospace,monospace;font-size:11px;word-break:break-all;color:var(--muted)}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:14px}
+.faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px}
+footer.pub{border-top:1px solid var(--line);margin-top:36px;padding:24px 0 40px;color:var(--muted);font-size:12.5px}
+footer.pub .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px}
+footer.pub a{color:var(--muted);text-decoration:none;margin-right:16px}
+footer.pub a:hover{color:var(--accent)}
+.notice{border:1px solid #c6ddf2;background:#eef7ff;color:#174a74;border-radius:8px;padding:12px 14px;margin:14px 0;font-size:13px}
+.notice.warn{border-color:#f0d7a8;background:#fff8e9;color:#6b4b12}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:26px}h1{font-size:34px}.hero{padding-top:38px}}
+@media(max-width:620px){h1{font-size:30px}h2{font-size:23px}nav.pub a:not(.btn){display:none}.price{font-size:32px}}
+</style>
+</head>
+<body>
+<header class="pub">
+  <div class="wrap">
+    <a class="brand" href="#">Haul<span>Sync</span></a>
+    <nav class="pub">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#download">Download</a>
+      <a class="btn" style="padding:8px 14px;font-size:13px" href="https://yasir.tailab7a7c.ts.net">Buy a license</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pill">Annual &amp; monthly licenses · unlimited clients</span>
+        <h1>Every GTA client.<br>Kept completely separate.</h1>
+        <p class="lead">HaulSync gives each client their own recipients, GSTR-1 work, bank reconciliation, settings and backups. Switch clients from the header; nothing mixes.</p>
+        <div class="hero-actions">
+          <a class="btn large" href="https://github.com/yaiz2702/haulsync-releases/releases/latest/download/HaulSync-Setup.exe">Download for Windows</a>
+          <a class="btn ghost large" href="https://yasir.tailab7a7c.ts.net">Buy a license</a>
+        </div>
+        <div class="trust">
+          <span>7-day free trial</span>
+          <span>One computer per license</span>
+          <span>Windows 10 / 11, 64-bit</span>
+        </div>
+      </div>
+      <figure class="shot" style="margin:0">
+        <img src="assets/haulsync-dashboard.png" alt="HaulSync dashboard showing a demo client's recipients, runs and reconciliation summary" width="1216" height="845">
+        <figcaption>Demo data shown. Your clients stay on your computer.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <p class="section-title">Built for GTA practices</p>
+      <h2>One tool for the work you repeat every month</h2>
+      <p class="sub">Stop juggling folders, spreadsheets and last month's copy. HaulSync keeps the routine in one place and each client's data apart.</p>
+      <div class="grid">
+        <div class="card"><div class="icon">1</div><h3>Client isolation by design</h3><p>Each client has a separate database and folder. Recipients, runs, settings, bank data and backups never cross between clients.</p></div>
+        <div class="card"><div class="icon">2</div><h3>GSTR-1 without retyping</h3><p>Validated recipient master, invoice series and the official workbook template. Corrections and alternate names are reused next month.</p></div>
+        <div class="card"><div class="icon">3</div><h3>Bank reconciliation</h3><p>Upload text-based bank PDFs, match receipts to invoices, review exceptions and keep a clear transaction trail per client.</p></div>
+        <div class="card"><div class="icon">4</div><h3>Backups that stay local</h3><p>Per-client backups and restores, plus exports. Expired licenses still allow backup, restore and export.</p></div>
+        <div class="card"><div class="icon">5</div><h3>Archive, never delete</h3><p>Finished with a client? Archive the folder and restore it later. HaulSync keeps the data instead of hard-deleting it.</p></div>
+        <div class="card"><div class="icon">6</div><h3>Simple licensing</h3><p>One license covers unlimited clients on one computer. Activate online, work offline for 14 days, renew any time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="section-title">How it works</p>
+      <h2>From download to first return in minutes</h2>
+      <div class="steps">
+        <div class="step"><h3>Install and open</h3><p>Run the per-user installer, open HaulSync from the Start Menu, and it opens in your browser.</p></div>
+        <div class="step"><h3>Add your first client</h3><p>Enter the trade name and GSTIN. HaulSync creates a private folder and database for that client.</p></div>
+        <div class="step"><h3>Work, back up, switch</h3><p>Import recipients and bank statements, prepare the return, back up, then switch clients from the header.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <p class="section-title">Pricing</p>
+      <h2>Pick the plan that fits the year</h2>
+      <p class="sub">Every plan includes all features, unlimited GTA clients and one active computer. Prices are in Indian rupees. Invoices are issued for your business.</p>
+      <div class="plans">
+        <div class="plan">
+          <span class="badge">Best value</span>
+          <h3>Annual license</h3>
+          <p class="desc">One year of full features for one computer.</p>
+          <div class="price">₹2,499 <small>/ year</small></div>
+          <ul>
+            <li>Unlimited GTA clients</li>
+            <li>All HaulSync features and updates</li>
+            <li>1 active computer</li>
+            <li>Invoice for your business</li>
+          </ul>
+          <a class="btn large" href="https://yasir.tailab7a7c.ts.net#orderCard">Buy annual</a>
+        </div>
+        <div class="plan">
+          <h3>Monthly license</h3>
+          <p class="desc">One month of full features for one computer.</p>
+          <div class="price">₹249 <small>/ month</small></div>
+          <ul>
+            <li>Unlimited GTA clients</li>
+            <li>All HaulSync features and updates</li>
+            <li>1 active computer</li>
+            <li>Invoice for your business</li>
+          </ul>
+          <a class="btn ghost large" href="https://yasir.tailab7a7c.ts.net#orderCard">Buy monthly</a>
+        </div>
+      </div>
+      <div class="notice" style="margin-top:18px">Not ready to buy? Install HaulSync and start a <b>7-day free trial</b> from the License chip. No card details, no automatic charge.</div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="wrap">
+      <p class="section-title">Download</p>
+      <h2>Install HaulSync for Windows</h2>
+      <p class="sub">The installer is per-user and does not need an administrator account. It installs the app, not Python, and keeps your client data outside the program folder.</p>
+      <div class="card">
+        <p><a class="btn large" href="https://github.com/yaiz2702/haulsync-releases/releases/latest/download/HaulSync-Setup.exe">Download HaulSync-Setup.exe</a>
+           <a class="btn ghost large" href="https://github.com/yaiz2702/haulsync-releases/releases">All releases</a></p>
+        <div class="download-box">
+          <p><b>Windows 10 or 11, 64-bit</b> · version 1.1.0 · per-user install</p>
+          <p class="hint">The installer is not code-signed yet, so Windows SmartScreen may show a warning. Choose <b>More info</b>, then <b>Run anyway</b>. The SHA-256 checksum is published below and with every release.</p>
+          <p class="checksum">SHA-256: c874ef59cc4b9daf010b070f2ce80567c3be4401d713bbe96184b856a1eeddde</p>
+        </div>
+        <p style="margin-top:14px"><b>Where your data lives:</b> program in <span class="checksum">%LOCALAPPDATA%\Programs\HaulSync</span>; clients, backups and logs in <span class="checksum">%LOCALAPPDATA%\HaulSync</span>. Uninstalling keeps your data and activation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="wrap">
+      <p class="section-title">Questions</p>
+      <h2>Before you install</h2>
+      <details><summary>Does one license cover all my clients?</summary><p>Yes. HaulSync is licensed per user, not per client. One annual or monthly license covers unlimited GTA clients on one computer.</p></details>
+      <details><summary>Can I move HaulSync to a new computer?</summary><p>Yes. Deactivate the license on the old computer from the License dialog, then activate the same key on the new one.</p></details>
+      <details><summary>What happens when the license expires?</summary><p>HaulSync switches to read-only. You can still open the app, take backups, restore and export. Activate a renewal key to unlock editing again.</p></details>
+      <details><summary>Does it work without internet?</summary><p>HaulSync checks with the license server every 7 days and keeps working for 14 days offline. Activation and renewal need internet.</p></details>
+      <details><summary>How do I pay?</summary><p>Place an order on the store, pay by UPI or bank transfer, and submit the transaction reference. The license key is issued after the payment is verified.</p></details>
+      <details><summary>Where are my clients' files stored?</summary><p>On your computer, under <span class="checksum">%LOCALAPPDATA%\HaulSync\data\clients</span>. Each client has a separate folder and database. HaulSync does not upload client data.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer class="pub">
+  <div class="wrap">
+    <div><b>HaulSync</b> · Haul. Reconcile. File.</div>
+    <div>
+      <a href="https://yasir.tailab7a7c.ts.net">Store</a>
+      <a href="https://github.com/yaiz2702/haulsync-releases/releases">Releases</a>
+      <a href="https://yasir.tailab7a7c.ts.net#orderCard">Buy</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
