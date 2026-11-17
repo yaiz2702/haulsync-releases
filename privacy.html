@@ -64,8 +64,16 @@ table.data tr:last-child td{border-bottom:0}
 .badge.pending_payment,.badge.payment_review,.badge.pending{background:#fff4d9;color:#7a560f}
 .badge.rejected,.badge.revoked,.badge.expired{background:#fde8e8;color:#8a1f1f}
 footer.pub{border-top:1px solid var(--line);margin-top:38px;padding:20px 0 34px;color:var(--muted);font-size:12px}
-@media(max-width:720px){.hero h1{font-size:27px}.form{grid-template-columns:1fr}.brand-logo{height:30px}}
+.privacy-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:14px 18px;margin:16px 0}
+.privacy-strip b{font-size:13px;color:var(--navy)}
+.privacy-strip span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.privacy-strip a{white-space:nowrap;font-weight:600;font-size:12.5px}
+@media(max-width:720px){.hero h1{font-size:27px}.form{grid-template-columns:1fr}.brand-logo{height:30px}.privacy-strip{flex-direction:column;align-items:flex-start;gap:8px}}
 
+.privacy-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 8px}
+.privacy-summary div{background:#fff;border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:10px;padding:14px 16px;box-shadow:0 1px 2px rgba(0,42,90,.04)}
+.privacy-summary b{display:block;color:var(--navy);font-size:13px;margin-bottom:4px}
+.privacy-summary span{display:block;color:var(--muted);font-size:12px;line-height:1.5}
 .legal{display:grid;grid-template-columns:216px minmax(0,1fr);gap:32px;align-items:start;padding:30px 0 10px}
 .legal-toc{position:sticky;top:18px;font-size:12.5px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 14px}
 .legal-toc h2{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
@@ -77,7 +85,7 @@ footer.pub{border-top:1px solid var(--line);margin-top:38px;padding:20px 0 34px;
 .legal-body{background:#fff;border:1px solid var(--line);border-radius:12px;padding:30px 34px;box-shadow:0 1px 2px rgba(0,42,90,.04)}
 .legal-body h2{font-size:19px;color:var(--navy);margin:30px 0 8px;scroll-margin-top:16px}
 .legal-body h2:first-of-type{margin-top:26px}
-.legal-body p{margin:8px 0}
+.legal-body p{margin:8px 0;line-height:1.65}
 .legal-body ul{margin:8px 0 10px 18px;padding:0}
 .legal-body li{margin:5px 0}
 .legal-body table{margin:12px 0}
@@ -85,8 +93,9 @@ footer.pub{border-top:1px solid var(--line);margin-top:38px;padding:20px 0 34px;
 .legal-body .legal-lead{font-size:15px;color:var(--ink);margin:10px 0 0}
 .legal-body .callout{background:var(--soft);border:1px solid #cfe8e4;border-radius:10px;padding:14px 16px;margin:16px 0}
 .legal-body .callout p{margin:4px 0}
-.legal-body .legal-foot{border-top:1px solid var(--line);margin-top:28px;padding-top:14px;font-size:12px;color:var(--muted)}
-@media(max-width:860px){.legal{grid-template-columns:1fr;gap:18px}.legal-toc{position:static}.legal-body{padding:22px 18px}}
+.legal-body .contact-card{background:var(--soft);border:1px solid #cfe8e4;border-radius:10px;padding:14px 16px;margin:12px 0}
+.legal-body .contact-card p{margin:3px 0}
+@media(max-width:860px){.privacy-summary{grid-template-columns:1fr}.legal{grid-template-columns:1fr;gap:18px}.legal-toc{position:static}.legal-body{padding:22px 18px}}
 @media print{.legal{display:block;padding:0}.legal-toc{display:none}header.pub,footer.pub,nav.pub{display:none}.legal-body{border:0;box-shadow:none;padding:0}}
 
 header.pub .wrap{max-width:1060px}
@@ -98,17 +107,23 @@ header.pub .wrap{max-width:1060px}
 </div></header>
 <main class="wrap">
   <section class="hero" style="padding:34px 0 4px">
-    <span class="pill">Legal</span>
+    <span class="pill">Privacy &middot; Version 1.1</span>
     <h1 style="font-size:30px">Privacy policy</h1>
-    <p style="font-size:14px">What we collect, why, and what never leaves your computer.</p>
+    <p style="font-size:14px">For the HaulSync desktop app, this licence store and the public website.
+       What we collect, why, and what never leaves your computer.</p>
   </section>
-  <div class="legal">
+  <div class="privacy-summary">
+  <div><b>Client data stays on your computer</b><span>Client records, invoices, bank statements, GSTINs, exports and backups are never sent to us.</span></div>
+  <div><b>What we receive</b><span>Your name, email, phone, billing details and the licence-check data needed to run your licence.</span></div>
+  <div><b>What we never collect</b><span>Client data, Aadhaar or PAN numbers, government-portal passwords, analytics or advertising profiles.</span></div>
+</div>
+<div class="legal">
   <nav class="legal-toc" aria-label="Contents">
     <h2>Contents</h2>
     <ol><li><a href="#who-we-are">Who we are</a></li><li><a href="#short-version">The short version</a></li><li><a href="#stays-on-your-computer">Data that stays on your computer</a></li><li><a href="#what-we-collect">Data we collect</a></li><li><a href="#not-collected">Data we do not collect</a></li><li><a href="#cookies">Cookies and tracking</a></li><li><a href="#why">Why we process your data</a></li><li><a href="#sharing">Who we share it with</a></li><li><a href="#retention">How long we keep it</a></li><li><a href="#security">How we protect it</a></li><li><a href="#rights">Your rights</a></li><li><a href="#children">Children</a></li><li><a href="#changes">Changes to this policy</a></li><li><a href="#contact">Contact</a></li></ol>
   </nav>
   <article class="legal-body">
-    <p class="legal-meta">Version 1.0 &middot; Last updated 17 November 2026</p>
+    <p class="legal-meta">Version 1.1 &middot; Last updated 17 November 2026</p>
     <h2 id="who-we-are">1. Who we are</h2>
 <p class="legal-lead">HaulSync is a Windows desktop application for preparing and filing GST
 returns. It is operated by <b>Mohammad Yasir Najar</b>, a sole proprietor trading as HaulSync,
@@ -124,6 +139,9 @@ this policy.</p>
   <p><b>We only receive what is needed to sell and licence the software:</b> your name, email,
   phone, billing details, a hashed machine identifier, your computer name, the app version, and
   the date and IP address of licence checks.</p>
+  <p><b>We send service notices about the software you licence</b> &mdash; new versions and
+  important security or correctness fixes &mdash; to active licence holders. Product news and
+  offers are sent only with your consent.</p>
   <p><b>We do not sell or rent personal data</b>, and we do not run advertising or analytics
   trackers.</p>
 </div><h2 id="stays-on-your-computer">3. Data that stays on your computer</h2>
@@ -156,8 +174,10 @@ an identifier is used as a correction key, only a one-way SHA-256 hash is kept.<
       <td>to confirm the licence is active and not revoked</td></tr>
   <tr><td>Recovering a licence</td><td>email, one-time verification codes (stored hashed), attempt counts</td>
       <td>to prove you own the email on the licence</td></tr>
+  <tr><td>Receiving a service notice</td><td>name, email, licence status and delivery record</td>
+      <td>to tell active licence holders about new versions and important security or correctness fixes</td></tr>
   <tr><td>Optional marketing</td><td>email and your opt-in choice, delivery and unsubscribe records</td>
-      <td>to send occasional product updates you asked for</td></tr>
+      <td>to send occasional product news and offers you asked for</td></tr>
   <tr><td>Support</td><td>whatever you include in your message</td><td>to answer you</td></tr>
 </table>
 <p>We <b>do not</b> receive your bank or card credentials. UPI payments are completed in your own
@@ -182,7 +202,10 @@ keep standard server logs such as IP address and timestamp under their own priva
   <tr><td>Verifying payments and preventing fraud or licence abuse</td>
       <td>legitimate uses / contract</td></tr>
   <tr><td>Keeping tax and accounting records</td><td>compliance with a legal obligation</td></tr>
-  <tr><td>Sending product updates and offers</td>
+  <tr><td>Sending service notices about your licence and the software you have licensed
+      (new versions, security or correctness fixes, expiry reminders)</td>
+      <td>performance of a contract / legitimate use</td></tr>
+  <tr><td>Sending product news and offers</td>
       <td>your consent, which you may withdraw at any time</td></tr>
   <tr><td>Sending transactional email (verification codes, invoices, licence notices)</td>
       <td>contract</td></tr>
@@ -209,6 +232,7 @@ data-protection commitments and transfer only the minimum necessary.</p><h2 id="
   <tr><td>Licence checks (including IP address)</td><td>24 months, then deleted automatically</td></tr>
   <tr><td>Trial records</td><td>24 months from the end of the trial</td></tr>
   <tr><td>Support correspondence</td><td>24 months</td></tr>
+  <tr><td>Release notice delivery records</td><td>24 months</td></tr>
   <tr><td>Marketing consent and unsubscribe records</td>
       <td>until you opt out; the suppression record is kept so we do not email you again</td></tr>
   <tr><td>Administration audit log</td><td>24 months</td></tr>
@@ -237,17 +261,25 @@ the Data Protection Board as required by the DPDP Act.</p><h2 id="rights">11. Yo
 </ul>
 <p>Write to <a href="mailto:haulsync2026@gmail.com">haulsync2026@gmail.com</a> from the email address on your licence. We respond within 30 days. Erasure
 requests are actioned within 30 days, except for records we must retain under GST or accounting
-law, which are deleted when that period ends.</p><h2 id="children">12. Children</h2>
+law, which are deleted when that period ends.</p>
+<p><b>Service notices.</b> While your licence is active, we send service notices about the
+software you have licensed, including new versions and security or correctness fixes. These are
+part of the service and are not marketing; they continue while the licence is active. You can
+withdraw consent to product news and offers at any time without affecting those service
+notices.</p><h2 id="children">12. Children</h2>
 <p>HaulSync is a professional accounting tool. It is not directed at children, and we do not
 knowingly collect data from anyone under 18.</p><h2 id="changes">13. Changes to this policy</h2>
 <p>If we change how we handle personal data, we will update this page, change the version and date
 above, and &mdash; for material changes &mdash; notify licence holders by email or in the app
 before the change takes effect. Earlier versions are available on request.</p><h2 id="contact">14. Contact</h2>
-<p>Mohammad Yasir Najar &middot; HaulSync<br>
-Anantnag, Jammu &amp; Kashmir, India<br>
-<a href="mailto:haulsync2026@gmail.com">haulsync2026@gmail.com</a></p>
-<p class="legal-foot">This policy was written to match what the software actually does. It is not
-legal advice.</p>
+<div class="contact-card">
+  <p><b>Mohammad Yasir Najar</b> &middot; HaulSync</p>
+  <p>Anantnag, Jammu &amp; Kashmir, India</p>
+  <p>Privacy and support: <a href="mailto:haulsync2026@gmail.com">haulsync2026@gmail.com</a></p>
+  <p>Grievance officer: Mohammad Yasir Najar &middot; response within 30 days</p>
+</div>
+<p>Write from the email address on your licence so we can find your records without asking for
+additional personal data.</p>
   </article>
 </div>
 </main>
